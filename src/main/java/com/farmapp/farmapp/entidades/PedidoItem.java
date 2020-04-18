@@ -64,8 +64,6 @@ public class PedidoItem implements Serializable{
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
-	
 	
 	@Override
 	public int hashCode() {
@@ -91,6 +89,4 @@ public class PedidoItem implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 }
