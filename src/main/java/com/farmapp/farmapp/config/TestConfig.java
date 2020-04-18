@@ -20,10 +20,8 @@ public class TestConfig implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Medicamento med = new Medicamento(null, "Dorflex", "Bula", 10.00);
-		Medicamento med2 = new Medicamento(null, "Paracetamol", "Bula", 5.00);
 		
-		medicamentoRepository.saveAll(Arrays.asList(med, med2));
+	
 	}
 	
 	

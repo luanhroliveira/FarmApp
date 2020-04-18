@@ -25,9 +25,9 @@ public class MedicamentoResource {
 		return ResponseEntity.ok().body(listMedicamento);
 	}
 	
-	@GetMapping(value = "/{idMedicamento}")
-	public ResponseEntity<Medicamento> findById(@PathVariable Long idMedicamento){
-		Medicamento obj = service.findById(idMedicamento);
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Medicamento> findById(@PathVariable Long id){
+		Medicamento obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Medicamento implements Serializable{
@@ -14,27 +16,39 @@ public class Medicamento implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idMedicamento;
+	private Long idMedicamento;
 	
 	private String nome;
 	private String descricao;
 	private Double preco;
 	
+	@ManyToOne
+	@JoinColumn(name = "drogaria_id")
+	private Drogaria drogaria;
+	
 	public Medicamento() {
 	}
 	
-	public Medicamento(Integer idMedicamento, String nome, String descricao, Double preco) {
+	public Medicamento(Long idMedicamento, String nome, String descricao, Double preco, Drogaria drogaria) {
 		this.idMedicamento = idMedicamento;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 	}
+	
+	public Drogaria getDrogaria() {
+		return drogaria;
+	}
 
-	public Integer getIdMedicamento() {
+	public void setDrogaria(Drogaria drogaria) {
+		this.drogaria = drogaria;
+	}
+
+	public Long getIdMedicamento() {
 		return idMedicamento;
 	}
 
-	public void setIdMedicamento(Integer idMedicamento) {
+	public void setIdMedicamento(Long idMedicamento) {
 		this.idMedicamento = idMedicamento;
 	}
 
