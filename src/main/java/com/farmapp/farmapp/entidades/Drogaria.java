@@ -1,16 +1,20 @@
 package com.farmapp.farmapp.entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "tb_drogaria")
 public class Drogaria implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -20,8 +24,9 @@ public class Drogaria implements Serializable{
 	private Long idDrogaria;
 	private String razaoSocial;
 	
-	@OneToMany(mappedBy = "drogaria")
-	private List<Medicamento> listMedicamento = new ArrayList<>();
+	@JsonIgnore
+	@ManyToMany(mappedBy = "drogarias")
+	private Set<Medicamento> medicamentos = new HashSet<>();
 	
 	public Drogaria() {
 	}
@@ -47,8 +52,9 @@ public class Drogaria implements Serializable{
 		this.razaoSocial = razaoSocial;
 	}
 	
-	public List<Medicamento> getMedicamento(){
-		return listMedicamento;
+
+	public Set<Medicamento> getMedicamentos() {
+		return medicamentos;
 	}
 
 	@Override

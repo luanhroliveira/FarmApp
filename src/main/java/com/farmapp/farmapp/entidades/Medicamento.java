@@ -1,51 +1,44 @@
 package com.farmapp.farmapp.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Medicamento implements Serializable{
+@Table(name = "tb_medicamento")
+public class Medicamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idMedicamento;
-	
+
 	private String nome;
 	private String descricao;
 	private Double preco;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "drogaria_id")
-	private Drogaria drogaria;
-	
+	@ManyToMany
+	@JoinTable(name = "tb_medicamento_drogaria", joinColumns = @JoinColumn(name = "medicamento_id"), inverseJoinColumns = @JoinColumn(name = "drogaria_id"))
+	private Set<Drogaria> drogarias = new HashSet<>();
+
 	public Medicamento() {
 	}
-	
-	public Medicamento(Long idMedicamento, String nome, String descricao, Double preco, Drogaria drogaria) {
+
+	public Medicamento(Long idMedicamento, String nome, String descricao, Double preco) {
 		this.idMedicamento = idMedicamento;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.drogaria = drogaria;
-	}
-	
-	public Drogaria getDrogaria() {
-		return drogaria;
-	}
-
-	public void setDrogaria(Drogaria drogaria) {
-		this.drogaria = drogaria;
 	}
 
 	public Long getIdMedicamento() {
@@ -78,6 +71,10 @@ public class Medicamento implements Serializable{
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	public Set<Drogaria> getDrogarias() {
+		return drogarias;
 	}
 
 	@Override

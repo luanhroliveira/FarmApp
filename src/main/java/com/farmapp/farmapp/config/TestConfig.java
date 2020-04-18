@@ -37,15 +37,22 @@ public class TestConfig implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
+		Medicamento med = new Medicamento(null, "Dorflex", "Bula", 10.00);
+		Medicamento med2 = new Medicamento(null, "Paracetamol", "Bula", 5.00);
+		Medicamento med3 = new Medicamento(null, "Dipirona", "Bula", 7.00);
+		
+		medicamentoRepository.saveAll(Arrays.asList(med, med2));
+		
 		Drogaria d = new Drogaria(null, "Farmais");
 		Drogaria d1 = new Drogaria(null, "Farmax");
 		
 		drogariaRepository.saveAll(Arrays.asList(d,d1));
 		
-		Medicamento med = new Medicamento(null, "Dorflex", "Bula", 10.00, d);
-		Medicamento med2 = new Medicamento(null, "Paracetamol", "Bula", 5.00, d1);
+		med.getDrogarias().add(d);
+		med2.getDrogarias().add(d1);
+		med3.getDrogarias().add(d);
 		
-		medicamentoRepository.saveAll(Arrays.asList(med, med2));
+		medicamentoRepository.saveAll(Arrays.asList(med, med2, med3));
 		
 		User u1 = new User(null, "Joao", "12345678911", "joao@gmail.com", "Av. Pereira", "123456789", "123");
 		User u2 = new User(null, "Maria", "1564897321", "maria@gmail.com", "Av. Caxias", "987654213", "456");
