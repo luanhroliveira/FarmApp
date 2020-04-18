@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.farmapp.farmapp.entidades.Drogaria;
 import com.farmapp.farmapp.entidades.Medicamento;
+import com.farmapp.farmapp.entidades.Pagamento;
 import com.farmapp.farmapp.entidades.Pedido;
 import com.farmapp.farmapp.entidades.PedidoItem;
 import com.farmapp.farmapp.entidades.User;
@@ -74,6 +75,11 @@ public class TestConfig implements CommandLineRunner{
 		PedidoItem pi3 = new PedidoItem(p1, med2, 2, med2.getPreco());
 		
 		pedidoItemRepository.saveAll(Arrays.asList(pi1, pi2, pi3));
+		
+		Pagamento pag1 = new Pagamento(null, new Date(), p1);
+		p1.setPagamento(pag1);
+		
+		pedidoRepository.save(p1);
 		
 	}
 	
