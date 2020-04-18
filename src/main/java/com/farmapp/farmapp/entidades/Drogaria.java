@@ -26,10 +26,9 @@ public class Drogaria implements Serializable{
 	public Drogaria() {
 	}
 
-	public Drogaria(Long idDrogaria, String razaoSocial, List<Medicamento> listMedicamento) {
+	public Drogaria(Long idDrogaria, String razaoSocial) {
 		this.idDrogaria = idDrogaria;
 		this.razaoSocial = razaoSocial;
-		this.listMedicamento = listMedicamento;
 	}
 
 	public Long getIdDrogaria() {
@@ -48,8 +47,8 @@ public class Drogaria implements Serializable{
 		this.razaoSocial = razaoSocial;
 	}
 	
-	public void addMedicamento(Medicamento medicamento) {
-		listMedicamento.add(medicamento);
+	public List<Medicamento> getMedicamento(){
+		return listMedicamento;
 	}
 
 	@Override
@@ -82,7 +81,4 @@ public class Drogaria implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 }

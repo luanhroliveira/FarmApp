@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Medicamento implements Serializable{
 
@@ -22,6 +24,7 @@ public class Medicamento implements Serializable{
 	private String descricao;
 	private Double preco;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "drogaria_id")
 	private Drogaria drogaria;
@@ -34,6 +37,7 @@ public class Medicamento implements Serializable{
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.drogaria = drogaria;
 	}
 	
 	public Drogaria getDrogaria() {
