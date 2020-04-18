@@ -1,23 +1,33 @@
 package com.farmapp.farmapp.resources;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farmapp.farmapp.entidades.Medicamento;
+import com.farmapp.farmapp.services.MedicamentoServices;
 
 @RestController
 @RequestMapping(value = "/medicamentos")
 public class MedicamentoResource {
 
+	@Autowired
+	private MedicamentoServices service;
+	
 	@GetMapping
-	public ResponseEntity<Medicamento> findAll(){
-		
-		Medicamento medicamento = new Medicamento(1, "Dorflex", "BULA", 5.00);
-		
-		return ResponseEntity.ok().body(medicamento);
-		
+	public ResponseEntity<List<Medicamento>> findAll(){
+		List<Medicamento> listMedicamento = service.findAll();
+		return ResponseEntity.ok().body(listMedicamento);
 	}
 	
+	@GetMapping(value = "/{idMedicamento}")
+	public ResponseEntity<Medicamento> findById(@PathVariable Long idMedicamento){
+		Medicamento obj = service.findById(idMedicamento);
+		return ResponseEntity.ok().body(obj);
+	}
 }
