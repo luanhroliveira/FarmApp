@@ -2,6 +2,8 @@ package com.farmapp.farmapp.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.farmapp.farmapp.entidades.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,6 +27,8 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPedido;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Date moment;
 	private Integer statusPedido;
 	
@@ -30,6 +36,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User cliente;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<PedidoItem> itens = new HashSet<>();
 	
 	public Pedido() {
 	}
@@ -74,6 +83,10 @@ public class Pedido implements Serializable{
 
 	public void setCliente(User cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<PedidoItem> getItens(){
+		return itens;
 	}
 
 	@Override
